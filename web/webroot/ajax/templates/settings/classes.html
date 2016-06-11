@@ -1,0 +1,4 @@
+<option value="-1">- классификатор -</option>
+<?php foreach ($data['classes'] as $row) { ?>
+<option value="<?=$row['id']?>" title = "<?=$row['term']?>"><?=$row['id']?></option>
+<?php } ?>

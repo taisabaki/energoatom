@@ -1,0 +1,4 @@
+<option value="-1">- сокр. -</option>
+<?php foreach ($data['departments'] as $row) {?>
+<option value="<?=$row['id']?>" title = "<?=$row['full_name']?>"><?=$row['name']?></option>
+<?php } ?>

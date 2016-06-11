@@ -1,0 +1,4 @@
+<option value="-1">- АЭС -</option>
+<?php foreach ($data as $row) { ?>
+<option value="<?=$row['id']?>" title = "<?=$row['full_name']?>"><?=$row['name']?></option>
+<?php } ?>

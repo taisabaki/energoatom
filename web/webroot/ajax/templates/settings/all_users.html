@@ -1,0 +1,4 @@
+<option value="-1">- логин -</option>
+<?php foreach ($data['users'] as $row) { ?>
+<option value="<?=$row['login']?>" title = "<?=$row['name']?>"><?=$row['login']?></option>
+<?php } ?>

@@ -1,0 +1,240 @@
+<div id="settings" xmlns="http://www.w3.org/1999/html">
+    <section>
+        <h3>Пользователи</h3>
+        <div class = "settings-row" id = "settings-new-user">
+            <label>
+                <span>Создать пользователя:</span>
+                <input class = "ajax-data" name = "login" placeholder = "Логин" maxlength="100"/>
+                <input class = "ajax-data" name = "name" placeholder = "Имя" maxlength="100"/>
+                <input class = "ajax-data" name = "password" type = "password" placeholder = "Пароль" maxlength="32"/>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+        <div class = "settings-row" id = "settings-new-admin">
+            <label>
+                <span>Добавить администратора:</span>
+                <input class = "ajax-data" name = "login" placeholder = "Логин" maxlength="100"/>
+                <input class = "ajax-data" name = "name" placeholder = "Имя" maxlength="100"/>
+                <input class = "ajax-data" name = "password" type = "password" placeholder = "Пароль" maxlength="32"/>
+                <button disabled>OK</button>
+            </label>
+            <label>
+                <span></span>
+                <select class = "ajax-data" name = "admin-login">
+                    <option value="-1">- администратор -</option>
+                    <?php foreach ($data['admins'] as $row) { ?>
+                    <option title = "<?=$row['name']?>" value = "<?=$row['login']?>"><?=$row['login']?></option>
+                    <?php } ?>
+                </select>
+                <input class = "ajax-data" name = "admin-password" type = "password" placeholder = "Пароль администратора" maxlength="32"/>
+            </label>
+
+        </div>
+        <div class = "settings-row" id = "settings-delete-user">
+            <label<?php if(!count($data['users']['active'])) { ?> class = "disabled"<?php } ?>>
+                <span>Удалить пользователя:</span>
+                <select class = "ajax-data" name = "login"<?php if(!count($data['users']['active'])) { ?> disabled<?php } ?>>
+                    <option value="-1">- логин -</option>
+                    <?php foreach ($data['users']['active'] as $row) { ?>
+                    <option title = "<?=$row['name']?>" value = "<?=$row['login']?>"><?=$row['login']?></option>
+                    <?php } ?>
+                </select>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+        <div class = "settings-row" id = "settings-restore-user">
+            <label<?php if(!count($data['users']['non-active'])) { ?> class = "disabled"<?php } ?>>
+                <span>Возобновить пользователя:</span>
+                <select class = "ajax-data" name = "login"<?php if(!count($data['users']['non-active'])) { ?> disabled<?php } ?>>
+                    <option value="-1">- логин -</option>
+                    <?php foreach ($data['users']['non-active'] as $row) { ?>
+                    <option title = "<?=$row['name']?>" value = "<?=$row['login']?>"><?=$row['login']?></option>
+                    <?php } ?>
+                </select>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+        <div class = "settings-row" id = "settings-new-login">
+            <label<?php if(!count($data['admins']) && !count($data['users']['active'])) { ?> class = "disabled"<?php } ?>>
+                <span>Сменить имя:</span>
+                <select class = "ajax-data" name = "login"<?php if(!count($data['admins']) && !count($data['users']['active']) && !count($data['users']['non-active'])) { ?> disabled<?php } ?>>
+                    <option value="-1">- логин -</option>
+
+                    <?php foreach ($data['admins'] as $row) { ?>
+                    <option title = "<?=$row['name']?>" value = "<?=$row['login']?>"><?=$row['login']?></option>
+                    <?php } ?>
+
+                    <?php foreach ($data['users']['active'] as $row) { ?>
+                    <option title = "<?=$row['name']?>" value = "<?=$row['login']?>"><?=$row['login']?></option>
+                    <?php } ?>
+
+                </select>
+                <input class = "ajax-data" name = "new-login" placeholder = "Новый логин" maxlength="100"/>
+                <input class = "ajax-data" name = "new-name" placeholder = "Новое имя" maxlength="100"/>
+                <input class = "ajax-data" name = "password" type = "password" placeholder = "Пароль" maxlength="32"/>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+        <div class = "settings-row" id = "settings-new-password">
+            <label<?php if(!count(!count($data['admins']) && $data['users']['active'])) { ?> class = "disabled"<?php } ?>>
+                <span>Сменить пароль:</span>
+                <select class = "ajax-data" name = "login"<?php if(!count($data['admins']) && !count($data['users']['active']) && !count($data['users']['non-active'])) { ?> disabled<?php } ?>>
+                    <option value="-1">- логин -</option>
+
+                    <?php foreach ($data['admins'] as $row) { ?>
+                    <option title = "<?=$row['name']?>" value = "<?=$row['login']?>"><?=$row['login']?></option>
+                    <?php } ?>
+
+                    <?php foreach ($data['users']['active'] as $row) { ?>
+                    <option title = "<?=$row['name']?>" value = "<?=$row['login']?>"><?=$row['login']?></option>
+                    <?php } ?>
+
+                </select>
+                <input class = "ajax-data" type = "password" name = "old-password" placeholder = "Старый пароль" maxlength="32"/>
+                <input class = "ajax-data" name = "new-password" placeholder = "Новый пароль" maxlength="32"/>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+
+    </section>
+
+    <section>
+        <h3>Архив</h3>
+        <div class = "settings-row" id = "settings-archive">
+            <label>
+                <span>Убрать:</span>
+                <select class = "ajax-data" name = "document">
+                    <option value="-1">- документ -</option>
+                    <option value="permission">Отдельное разрешение</option>
+                    <option value="protocol">Протокол</option>
+                    <option value="program">Программа/План-график</option>
+                </select>
+                <select class = "ajax-data" name = "npp" disabled>
+                    <option value="-1">- АЭС -</option>
+                </select>
+                <select class = "ajax-data" name = "unit" disabled>
+                    <option value="-1">- № -</option>
+                </select>
+                <select class = "ajax-data" name = "year" disabled>
+                    <option value="-1">- ППР -</option>
+                </select>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+
+    </section>
+
+    <section>
+        <h3>Подразделения</h3>
+        <div class = "settings-row" id = "settings-new-department">
+            <label>
+                <span>Добавить подразделение:</span>
+                <input class = "ajax-data" name = "department-name" placeholder = "Сокр." maxlength="50"/>
+                <input class = "ajax-data" name = "department-full_name" placeholder = "Название" maxlength="100"/>
+                <button disabled>OK</button>
+
+            </label>
+
+        </div>
+        <div class = "settings-row" id = "settings-delete-department">
+            <label>
+                <span>Удалить подразделение:</span>
+                <select class = "ajax-data" name = "department-name"<?php if(!count($data['departments'])) { ?> disabled<?php } ?>>
+                <option value="-1">- сокр. -</option>
+                <?php foreach ($data['departments'] as $row) { ?>
+                <option value="<?=$row['id']?>" title = "<?=$row['full_name']?>"><?=$row['name']?></option>
+                <?php } ?>
+                </select>
+                <button disabled>OK</button>
+
+            </label>
+
+        </div>
+
+        <div class = "settings-row" id = "settings-change-department">
+            <label>
+                <span>Редактировать подразделение:</span>
+                <select class = "ajax-data" name = "department-name"<?php if(!count($data['departments'])) { ?> disabled<?php } ?>>
+                <option value="-1">- сокр. -</option>
+                <?php foreach ($data['departments'] as $row) { ?>
+                <option value="<?=$row['id']?>" title = "<?=$row['full_name']?>"><?=$row['name']?></option>
+                <?php } ?>
+                </select>
+                <input class = "ajax-data" name = "department-new-name" placeholder = "Новое сокр." maxlength="50"/>
+                <input class = "ajax-data" name = "department-new-full_name" placeholder = "Новое название" maxlength="100"/>
+                <button disabled>OK</button>
+
+            </label>
+
+        </div>
+
+    </section>
+
+    <section>
+        <h3>Отраслевые условия</h3>
+        <div class = "settings-row" id = "settings-new-class">
+            <label>
+                <span>Добавить условие:</span>
+                <textarea class = "ajax-data" name = "new-term" placeholder = "Отраслевое условие"></textarea>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+
+        <div class = "settings-row" id = "settings-delete-class">
+            <label<?php if(!count($data['classes'])) { ?> class = "disabled"<?php } ?>>
+                <span>Удалить условие:</span>
+                <select class = "ajax-data" name = "class"<?php if(!count($data['classes'])) { ?> disabled<?php } ?>>
+                    <option value="-1">- классификатор -</option>
+                    <?php foreach ($data['classes'] as $row) { ?>
+                    <option value="<?=$row['id']?>" title = "<?=$row['term']?>"><?=$row['id']?></option>
+                    <?php } ?>
+                </select>
+                <textarea name = "term" placeholder = "Выберите классификатор" readonly></textarea>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+
+        <div class = "settings-row" id = "settings-edit-class">
+            <label<?php if(!count($data['classes'])) { ?> class = "disabled"<?php } ?>>
+                <span>Редактировать условие:</span>
+                <select class = "ajax-data" name = "class"<?php if(!count($data['classes'])) { ?> disabled<?php } ?>>
+                    <option value="-1">- классификатор -</option>
+                    <?php foreach ($data['classes'] as $row) { ?>
+                    <option value="<?=$row['id']?>" title = "<?=$row['term']?>"><?=$row['id']?></option>
+                    <?php } ?>
+                </select>
+                <textarea class = "ajax-data" name = "edit-term" placeholder = "Выберите классификатор"<?php if(!count($data['classes'])) { ?> readonly<?php } ?>></textarea>
+                <button disabled>OK</button>
+            </label>
+
+        </div>
+    </section>
+
+
+    <section>
+        <h3>ППР</h3>
+        <div class = "settings-row" id = "settings-years">
+            <label>
+                <span>Диапазон:</span>
+                <input class = "ajax-data" name = "min-year" placeholder = "От" maxlength="4"/>
+                <input class = "ajax-data" name = "max-year" placeholder = "До" maxlength="4"/>
+                <button disabled>OK</button>
+                <span class = "text-muted">&nbsp;&nbsp;<b>*</b><i> введите </i><strong>next</strong><i> во втором поле, чтобы обозначить следующий год</i></span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+
+</div>
